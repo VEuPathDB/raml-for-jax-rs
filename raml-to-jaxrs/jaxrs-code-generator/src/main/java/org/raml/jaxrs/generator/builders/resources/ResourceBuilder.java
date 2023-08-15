@@ -55,7 +55,6 @@ public class ResourceBuilder implements ResourceGenerator {
   private final String uri;
 
   public ResourceBuilder(CurrentBuild build, GResource resource, String name, String uri) {
-
     this.build = build;
     this.topResource = resource;
     this.name = name;

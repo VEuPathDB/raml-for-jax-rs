@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.raml.jaxrs</groupId>
         <artifactId>examples</artifactId>
-        <version>3.0.7</version>
+        <version>3.1.0</version>
     </parent>
 
     <artifactId>raml-to-jaxrs-gradle-examples</artifactId>

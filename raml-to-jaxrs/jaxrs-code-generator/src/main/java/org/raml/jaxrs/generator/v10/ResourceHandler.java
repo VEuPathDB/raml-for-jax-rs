@@ -19,6 +19,7 @@ import org.raml.jaxrs.generator.CurrentBuild;
 import org.raml.jaxrs.generator.GAbstractionFactory;
 import org.raml.jaxrs.generator.builders.resources.ResourceBuilder;
 import org.raml.jaxrs.generator.v08.V08TypeRegistry;
+import org.raml.v2.api.model.v10.declarations.AnnotationRef;
 import org.raml.v2.api.model.v10.resources.Resource;
 
 import java.util.Set;
@@ -38,9 +39,19 @@ public class ResourceHandler {
 
     GAbstractionFactory factory = new GAbstractionFactory();
 
+    String name = resource.resourcePath();
+
+    for (AnnotationRef annotation : resource.annotations()) {
+      if (!annotation.name().equals("(className)"))
+        continue;
+      if (!annotation.annotation().type().equals("string"))
+        continue;
+      name = (String) annotation.structuredValue().value();
+    }
+
     ResourceBuilder rg =
         new ResourceBuilder(build, factory.newResource(build, resource),
-                            resource.resourcePath(), resource.relativeUri().value());
+                            name, resource.relativeUri().value());
 
     build.newResource(rg);
   }
