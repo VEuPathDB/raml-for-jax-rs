@@ -53,10 +53,12 @@ public class RamlToPojoTypeGenerator implements TypeGenerator<ResultingPojos> {
 
   @Override
   public void output(CodeContainer<ResultingPojos> rootDirectory) throws IOException {
-
-    ResultingPojos p =
-        pojos
-            .buildPojo(name, typeDeclaration);
+    ResultingPojos p;
+    try {
+      p = pojos.buildPojo(name, typeDeclaration);
+    } catch (NullPointerException e) {
+      p = pojos.buildPojo(name, typeDeclaration);
+    }
 
     rootDirectory.into(p);
   }

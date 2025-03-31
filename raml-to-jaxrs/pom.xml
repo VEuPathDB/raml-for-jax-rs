@@ -4,7 +4,7 @@
     <parent>
         <groupId>org.raml.jaxrs</groupId>
         <artifactId>raml-for-jaxrs</artifactId>
-        <version>3.1.0</version>
+        <version>3.1.2</version>
     </parent>
     <packaging>pom</packaging>
     <artifactId>raml-to-jaxrs</artifactId>
@@ -16,18 +16,13 @@
             </activation>
             <modules>
                 <module>jaxrs-code-generator</module>
-                <module>raml-to-jaxrs-maven-plugin</module>
                 <module>raml-to-jaxrs-cli</module>
-                <!--<module>raml-to-jaxrs-gradle-plugin</module>-->
-                <module>examples</module>
             </modules>
         </profile>
     </profiles>
     <modules>
         <module>jaxrs-code-generator</module>
-        <module>raml-to-jaxrs-maven-plugin</module>
         <module>raml-to-jaxrs-cli</module>
-        <!--<module>raml-to-jaxrs-gradle-plugin</module>-->
     </modules>
     <properties>
         <licensePath>LICENSE_HEADER.txt</licensePath>
@@ -49,10 +44,10 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-compiler-plugin</artifactId>
-                    <version>3.8.0</version>
+                    <version>3.14.0</version>
                     <configuration>
-                        <source>1.7</source>
-                        <target>1.7</target>
+                        <source>11</source>
+                        <target>11</target>
                         <encoding>UTF-8</encoding>
                     </configuration>
                 </plugin>
@@ -74,16 +69,4 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
-    <repositories>
-        <repository>
-            <id>mulesoft-releases</id>
-            <name>MuleSoft Releases Repository</name>
-            <url>https://repository-master.mulesoft.org/releases/</url>
-        </repository>
-        <repository>
-            <id>mulesoft-snapshots</id>
-            <name>MuleSoft Snapshots Repository</name>
-            <url>https://repository-master.mulesoft.org/snapshots/</url>
-        </repository>
-    </repositories>
 </project>

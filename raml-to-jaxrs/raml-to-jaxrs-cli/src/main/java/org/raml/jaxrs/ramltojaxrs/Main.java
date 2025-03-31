@@ -21,6 +21,7 @@ import org.jsonschema2pojo.AnnotationStyle;
 import org.raml.jaxrs.generator.Configuration;
 import org.raml.jaxrs.generator.GenerationException;
 import org.raml.jaxrs.generator.RamlScanner;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.IOException;
@@ -34,6 +35,12 @@ import java.util.List;
 public class Main {
 
   public static void main(String[] args) throws IOException, GenerationException, ParseException {
+
+    var log = LoggerFactory.getLogger(Main.class);
+
+    log.info("hello");
+    log.warn("hello");
+    log.error("hello");
 
     Options options = new Options();
     options.addOption("j", "json-mapper", true, "jsonschema2pojo annotation types (jackson, jackson2 or gson)");
@@ -72,14 +79,18 @@ public class Main {
 
       RamlScanner scanner = new RamlScanner(configuration);
 
-      for (String ramlFile : ramlFiles) {
+      for (String ramlPath : ramlFiles) {
+        var ramlFile = new File(ramlPath);
+        var parentDir = ramlFile.getParentFile() == null
+          ? new File(System.getProperty("user.dir"))
+          : ramlFile.getParentFile();
 
         URLClassLoader ucl =
-            new URLClassLoader(new URL[] {new File(ramlFile).getParentFile().toURL()}, Main.class.getClassLoader());
+            new URLClassLoader(new URL[]{parentDir.toURI().toURL()}, Main.class.getClassLoader());
         ClassLoader loader = Thread.currentThread().getContextClassLoader();
         try {
           Thread.currentThread().setContextClassLoader(ucl);
-          scanner.handle(new File(ramlFile));
+          scanner.handle(ramlFile);
         } finally {
 
           Thread.currentThread().setContextClassLoader(loader);
